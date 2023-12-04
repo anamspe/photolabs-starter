@@ -1,13 +1,37 @@
-import React from 'react';
+import React from "react";
+import useApplicationData from "./hooks/useApplicationData";
 
-import PhotoListItem from './components/PhotoListItem';
-import './App.scss';
+import "./App.scss";
+import HomeRoute from "./routes/HomeRoute";
+import PhotoDetailsModal from "./routes/PhotoDetailsModal";
+import photos from "mocks/photos";
 
 // Note: Rendering a single component to build components in isolation
+
 const App = () => {
+  const {
+    fav,
+    showModal, 
+    photoDetails, 
+    toggleFavorite, 
+    handleModalAndPhoto
+  } = useApplicationData();
+
   return (
     <div className="App">
-      <PhotoListItem/>
+      <HomeRoute
+        fav={fav}
+        toggleFavorite={toggleFavorite}
+        showModal={showModal}
+        handleModalAndPhoto={handleModalAndPhoto}
+        photos={photos}
+      />
+      {showModal && <PhotoDetailsModal 
+      photoDetails={photoDetails} 
+      handleModalAndPhoto={handleModalAndPhoto}
+      fav={fav}
+      toggleFavorite={toggleFavorite}
+       />}
     </div>
   );
 };
