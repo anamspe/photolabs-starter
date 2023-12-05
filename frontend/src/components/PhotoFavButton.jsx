@@ -1,10 +1,9 @@
-import React, { useCallback, useState } from "react";
+import React from "react";
 
 import FavIcon from "./FavIcon";
 import "../styles/PhotoFavButton.scss";
 
-function PhotoFavButton(props) {
-  const {fav, toggleFavorite} = props;
+const PhotoFavButton = ({ fav, toggleFavorite }) => {
 
   return (
     <div onClick={toggleFavorite} className='photo-list__fav-icon'>

@@ -8,6 +8,7 @@ import PhotoDetailsModal from "./routes/PhotoDetailsModal";
 // Note: Rendering a single component to build components in isolation
 
 const App = () => {
+  //import states, data and functions from custom hook
   const {
     fav,
     showModal, 
@@ -22,18 +23,17 @@ const App = () => {
   return (
     <div className="App">
       <HomeRoute
-        fav={fav}
-        toggleFavorite={toggleFavorite}
-        showModal={showModal}
-        handleModalAndPhoto={handleModalAndPhoto}
-        photos={photoData}
-        topics={topicData}
-        togglePhotosByTopic={togglePhotosByTopic}
+        fav={fav} //favorites state - present throughout all components so it displays if it's been favorited or not
+        photos={photoData} //photos from db
+        topics={topicData} //topics from db
+        toggleFavorite={toggleFavorite} //handler to add or remove from favorites
+        handleModalAndPhoto={handleModalAndPhoto} //toggle to display modal and send photo data
+        togglePhotosByTopic={togglePhotosByTopic} //function to toggle photos by topic
       />
       {showModal && <PhotoDetailsModal 
-      photoDetails={photoDetails} 
-      handleModalAndPhoto={handleModalAndPhoto}
-      fav={fav}
+      fav={fav} 
+      photoDetails={photoDetails} //data from the clicked photo to be rendered by the modal
+      handleModalAndPhoto={handleModalAndPhoto} //here it is used to close the modal
       toggleFavorite={toggleFavorite}
        />}
     </div>

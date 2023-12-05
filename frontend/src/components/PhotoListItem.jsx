@@ -3,8 +3,7 @@ import React from "react";
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
-const PhotoListItem = (props) => {
-  const { fav, toggleFavorite, photo, handleModalAndPhoto } = props;
+const PhotoListItem = ({ fav, photo, toggleFavorite, handleModalAndPhoto }) => {
 
   const isFavorite = fav.includes(photo.id);
 

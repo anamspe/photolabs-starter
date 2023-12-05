@@ -5,25 +5,25 @@ import TopNavigation from "../components/TopNavigationBar";
 import PhotoList from "../components/PhotoList";
 
 const HomeRoute = ({
-  handleModalAndPhoto,
   fav,
-  toggleFavorite,
   photos,
   topics,
+  toggleFavorite,
+  handleModalAndPhoto,
   togglePhotosByTopic,
 }) => {
   return (
     <span className="home-route">
       <TopNavigation
-        fav={fav.length > 0}
+        fav={fav}
         topics={topics}
         togglePhotosByTopic={togglePhotosByTopic}
       />
       <PhotoList
         fav={fav}
+        photos={photos}
         toggleFavorite={toggleFavorite}
         handleModalAndPhoto={handleModalAndPhoto}
-        photos={photos}
       />
     </span>
   );

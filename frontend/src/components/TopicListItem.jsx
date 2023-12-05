@@ -2,7 +2,7 @@ import React from "react";
 
 import "../styles/TopicListItem.scss";
 
-const TopicListItem = ({ togglePhotosByTopic, topic }) => {
+const TopicListItem = ({ topic, togglePhotosByTopic }) => {
   return (
     <div
       className="topic-list__item"

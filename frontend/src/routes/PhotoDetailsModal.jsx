@@ -7,16 +7,15 @@ import PhotoList from "components/PhotoList";
 
 
 const PhotoDetailsModal = ({
-  handleModalAndPhoto,
-  photoDetails,
   fav,
+  photoDetails,
+  handleModalAndPhoto,
   toggleFavorite
 }) => {
-  // console.log(photoDetails);
 
  const isFavorite = fav.includes(photoDetails.id);
 
- const similar_photos = Object.values(photoDetails.similar_photos);
+ const similar_photos = photoDetails.similar_photos;
 
   return (
     <div className="photo-details-modal">
@@ -55,8 +54,8 @@ const PhotoDetailsModal = ({
         </div>
       </div>
       <PhotoList
-        photos={similar_photos}
         fav={fav}
+        photos={similar_photos}
         toggleFavorite={toggleFavorite}
         handleModalAndPhoto={handleModalAndPhoto}
       />
