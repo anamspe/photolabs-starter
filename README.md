@@ -43,7 +43,7 @@ npm start
   * If you do save a picture as your favourite, you'll be reminded of it with a notification in the navigation bar.
 
 > [!TIP]
-> IFilter pictures by a specific category, select a topic in the navigation bar!
+> Filter pictures by a specific category, select a topic in the navigation bar!
 
 ## Dev
 Created by Ana Franco, 2023.
