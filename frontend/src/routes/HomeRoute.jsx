@@ -8,11 +8,12 @@ const HomeRoute = ({
   handleModalAndPhoto,
   fav,
   toggleFavorite,
-  photos
+  photos,
+  topics
 }) => {
   return (
     <span className="home-route">
-      <TopNavigation fav={fav.length > 0} />
+      <TopNavigation fav={fav.length > 0} topics={topics} />
       <PhotoList
         fav={fav}
         toggleFavorite={toggleFavorite}
