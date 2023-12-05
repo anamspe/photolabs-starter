@@ -9,11 +9,16 @@ const HomeRoute = ({
   fav,
   toggleFavorite,
   photos,
-  topics
+  topics,
+  togglePhotosByTopic,
 }) => {
   return (
     <span className="home-route">
-      <TopNavigation fav={fav.length > 0} topics={topics} />
+      <TopNavigation
+        fav={fav.length > 0}
+        topics={topics}
+        togglePhotosByTopic={togglePhotosByTopic}
+      />
       <PhotoList
         fav={fav}
         toggleFavorite={toggleFavorite}

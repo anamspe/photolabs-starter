@@ -15,7 +15,8 @@ const App = () => {
     photoData,
     topicData,
     toggleFavorite, 
-    handleModalAndPhoto
+    handleModalAndPhoto,
+    togglePhotosByTopic
   } = useApplicationData();
 
   return (
@@ -27,6 +28,7 @@ const App = () => {
         handleModalAndPhoto={handleModalAndPhoto}
         photos={photoData}
         topics={topicData}
+        togglePhotosByTopic={togglePhotosByTopic}
       />
       {showModal && <PhotoDetailsModal 
       photoDetails={photoDetails} 

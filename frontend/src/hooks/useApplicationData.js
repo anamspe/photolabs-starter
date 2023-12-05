@@ -5,37 +5,38 @@ export const ACTIONS = {
   TOGGLE_FAVORITE: 'TOGGLE_FAVORITE',
   TOGGLE_MODAL_AND_PHOTO_DETAILS: 'TOGGLE_MODAL_AND_PHOTO_DETAILS',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
-  SET_TOPIC_DATA: 'SET_TOPIC_DATA'
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
 };
 
 const useApplicationData = () => {
-  
-const initialState = {
-  fav: [],
-  showModal: false,
-  photoDetails: null,
-  photoData: [],
-  topicData: []
-};
+
+  const initialState = {
+    fav: [],
+    showModal: false,
+    photoDetails: null,
+    photoData: [],
+    topicData: []
+  };
 
 
-function reducer(state, action) {
-  switch (action.type) {
-    case ACTIONS.TOGGLE_FAVORITE:
-      const isFavorite = state.fav.includes(action.payload);
-      const updatedFav = isFavorite
-        ? state.fav.filter((id) => id !== action.payload)
-        : [...state.fav, action.payload];
-      return {
-        ...state,
-        fav: updatedFav
-      };
-    case ACTIONS.TOGGLE_MODAL_AND_PHOTO_DETAILS:
-      return {
-        ...state,
-        showModal: !state.showModal,
-        photoDetails: action.payload
-      };
+  function reducer(state, action) {
+    switch (action.type) {
+      case ACTIONS.TOGGLE_FAVORITE:
+        const isFavorite = state.fav.includes(action.payload);
+        const updatedFav = isFavorite
+          ? state.fav.filter((id) => id !== action.payload)
+          : [...state.fav, action.payload];
+        return {
+          ...state,
+          fav: updatedFav
+        };
+      case ACTIONS.TOGGLE_MODAL_AND_PHOTO_DETAILS:
+        return {
+          ...state,
+          showModal: !state.showModal,
+          photoDetails: action.payload
+        };
       case ACTIONS.SET_PHOTO_DATA:
         return {
           ...state,
@@ -46,42 +47,56 @@ function reducer(state, action) {
           ...state,
           topicData: action.payload
         };
-    default:
-      throw new Error(
-        `Tried to reduce with unsupported action type: ${action.type}`
-      );
+      case ACTIONS.GET_PHOTOS_BY_TOPICS:
+        return {
+          ...state,
+          photoData: action.payload
+        };
+      default:
+        throw new Error(
+          `Tried to reduce with unsupported action type: ${action.type}`
+        );
+    }
   }
-}
 
 
-const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-const toggleFavorite = (photoId) => {
-  dispatch({type: ACTIONS.TOGGLE_FAVORITE, payload: photoId});
-}
+  const toggleFavorite = (photoId) => {
+    dispatch({ type: ACTIONS.TOGGLE_FAVORITE, payload: photoId });
+  };
 
-const handleModalAndPhoto = (photo) => {
-  dispatch({type: ACTIONS.TOGGLE_MODAL_AND_PHOTO_DETAILS, payload: photo});
-}
+  const handleModalAndPhoto = (photo) => {
+    dispatch({ type: ACTIONS.TOGGLE_MODAL_AND_PHOTO_DETAILS, payload: photo });
+  };
 
   useEffect(() => {
     const photosData = axios.get('/api/photos');
     const topicsData = axios.get('/api/topics');
-    const promises = [photosData, topicsData]
+
+    const promises = [photosData, topicsData];
     Promise.all(promises)
       .then(res => {
-        dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: res[0].data});
-        dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: res[1].data});
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: res[0].data });
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: res[1].data });
       });
-  }, [])
+  }, []);
+
+  const togglePhotosByTopic = (topic_id) => {
+    axios.get(`/api/topics/photos/${topic_id}`)
+    .then(res => {
+      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: res.data });
+    });
+  }
 
 
 
-return {
-  ...state,
-  toggleFavorite,
-  handleModalAndPhoto,
-};
+  return {
+    ...state,
+    toggleFavorite,
+    handleModalAndPhoto,
+    togglePhotosByTopic
+  };
 
 };
 

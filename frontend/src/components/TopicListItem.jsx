@@ -2,13 +2,13 @@ import React from "react";
 
 import "../styles/TopicListItem.scss";
 
-const TopicListItem = (props) => {
-
-  const data = props.topic;
-
+const TopicListItem = ({ togglePhotosByTopic, topic }) => {
   return (
-    <div className="topic-list__item">
-      <span>{data.title}</span>
+    <div
+      className="topic-list__item"
+      onClick={() => togglePhotosByTopic(topic.id)}
+    >
+      <span>{topic.title}</span>
     </div>
   );
 };
