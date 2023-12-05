@@ -6,6 +6,7 @@ export const ACTIONS = {
   TOGGLE_MODAL_AND_PHOTO_DETAILS: 'TOGGLE_MODAL_AND_PHOTO_DETAILS',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
+  TOGGLE_DARK_MODE: 'TOGGLE_DARK_MODE'
 };
 
 const useApplicationData = () => {
@@ -15,7 +16,9 @@ const useApplicationData = () => {
     showModal: false,
     photoDetails: null,
     photoData: [],
-    topicData: []
+    topicData: [],
+    darkMode: 'white',
+    dark: ''
   };
 
 
@@ -50,6 +53,16 @@ const useApplicationData = () => {
         return {
           ...state,
           topicData: action.payload
+        };
+      case ACTIONS.TOGGLE_DARK_MODE:
+        //change colors in the useEffect in line 104
+        const isDarkMode = (state.darkMode === 'white') ? '#222' : 'white'
+        //Adds 'on' to className if dark mode is on
+        const isDark = (state.dark === '') ? 'on' : ''
+        return {
+          ...state,
+          darkMode: isDarkMode,
+          dark: isDark
         };
       default:
         throw new Error(
@@ -88,11 +101,20 @@ const useApplicationData = () => {
     });
   }
 
+  useEffect(() => {
+    document.body.style.backgroundColor = state.darkMode
+  }, [state.darkMode])
+
+  const toggleDarkMode = () => {
+    dispatch({ type: ACTIONS.TOGGLE_DARK_MODE })
+  }
+
   return {
     ...state,
     toggleFavorite,
     handleModalAndPhoto,
-    togglePhotosByTopic
+    togglePhotosByTopic,
+    toggleDarkMode
   };
 
 };

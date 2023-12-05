@@ -11,17 +11,19 @@ const App = () => {
   //import states, data and functions from custom hook
   const {
     fav,
-    showModal, 
-    photoDetails, 
+    showModal,
+    photoDetails,
     photoData,
     topicData,
-    toggleFavorite, 
+    dark,
+    toggleFavorite,
     handleModalAndPhoto,
-    togglePhotosByTopic
+    togglePhotosByTopic,
+    toggleDarkMode
   } = useApplicationData();
 
   return (
-    <div className="App">
+    <div className={`App ${dark}`}>
       <HomeRoute
         fav={fav} //favorites state - present throughout all components so it displays if it's been favorited or not
         photos={photoData} //photos from db
@@ -29,13 +31,17 @@ const App = () => {
         toggleFavorite={toggleFavorite} //handler to add or remove from favorites
         handleModalAndPhoto={handleModalAndPhoto} //toggle to display modal and send photo data
         togglePhotosByTopic={togglePhotosByTopic} //function to toggle photos by topic
+        dark={dark}
+        toggleDarkMode={toggleDarkMode} //function to toggle dark mode
       />
-      {showModal && <PhotoDetailsModal 
-      fav={fav} 
-      photoDetails={photoDetails} //data from the clicked photo to be rendered by the modal
-      handleModalAndPhoto={handleModalAndPhoto} //here it is used to close the modal
-      toggleFavorite={toggleFavorite}
-       />}
+      {showModal && (
+        <PhotoDetailsModal
+          fav={fav}
+          photoDetails={photoDetails} //data from the clicked photo to be rendered by the modal
+          handleModalAndPhoto={handleModalAndPhoto} //here it is used to close the modal
+          toggleFavorite={toggleFavorite}
+        />
+      )}
     </div>
   );
 };

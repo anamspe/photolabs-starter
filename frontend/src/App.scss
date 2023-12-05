@@ -1,3 +1,30 @@
+.App.on {
+  color: rgb(216, 216, 216);
+
+  .top-nav-bar__logo,
+  .topic-list__item span, p {
+    color: white;
+  }
+
+  button, .photo-details-modal {
+    background-color: #222;
+    color: white;
+  }
+
+  .photo-list__item  {
+    border-color: #222;
+    background-color: rgb(71, 71, 71);
+  }
+
+  .photo-list__user-location, .photo-details-modal__photographer-location {
+    color: rgb(142, 143, 133);
+  }
+
+  .photo-list__fav-icon {
+    background-color: rgb(75, 75, 75)
+  }
+}
+
 .App {
   margin: 24px;
 }

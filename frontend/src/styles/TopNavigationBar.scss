@@ -8,6 +8,16 @@
   -moz-box-shadow: 0 4px 6px -6px #222;
   box-shadow: 0 4px 6px -6px #222;
   height: 72px;
+
+  button {
+    font-size: 20px;
+    background-color: #fff;
+    border: none;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .top-nav-bar__logo {

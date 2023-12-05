@@ -8,9 +8,11 @@ const HomeRoute = ({
   fav,
   photos,
   topics,
+  dark,
   toggleFavorite,
   handleModalAndPhoto,
   togglePhotosByTopic,
+  toggleDarkMode,
 }) => {
   return (
     <span className="home-route">
@@ -18,6 +20,8 @@ const HomeRoute = ({
         fav={fav}
         topics={topics}
         togglePhotosByTopic={togglePhotosByTopic}
+        dark={dark}
+        toggleDarkMode={toggleDarkMode}
       />
       <PhotoList
         fav={fav}
