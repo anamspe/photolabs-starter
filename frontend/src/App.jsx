@@ -4,8 +4,6 @@ import useApplicationData from "./hooks/useApplicationData";
 import "./App.scss";
 import HomeRoute from "./routes/HomeRoute";
 import PhotoDetailsModal from "./routes/PhotoDetailsModal";
-import photos from "mocks/photos";
-import topics from "mocks/topics";
 
 // Note: Rendering a single component to build components in isolation
 
@@ -14,6 +12,8 @@ const App = () => {
     fav,
     showModal, 
     photoDetails, 
+    photoData,
+    topicData,
     toggleFavorite, 
     handleModalAndPhoto
   } = useApplicationData();
@@ -25,8 +25,8 @@ const App = () => {
         toggleFavorite={toggleFavorite}
         showModal={showModal}
         handleModalAndPhoto={handleModalAndPhoto}
-        photos={photos}
-        topics={topics}
+        photos={photoData}
+        topics={topicData}
       />
       {showModal && <PhotoDetailsModal 
       photoDetails={photoDetails} 

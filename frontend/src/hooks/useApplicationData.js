@@ -1,14 +1,11 @@
-import { useState, useReducer } from "react";
+import { useReducer, useEffect } from "react";
+import axios from "axios";
 
 export const ACTIONS = {
   TOGGLE_FAVORITE: 'TOGGLE_FAVORITE',
   TOGGLE_MODAL_AND_PHOTO_DETAILS: 'TOGGLE_MODAL_AND_PHOTO_DETAILS',
-  // FAV_PHOTO_ADDED: 'FAV_PHOTO_ADDED',
-  // FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
-  // SET_PHOTO_DATA: 'SET_PHOTO_DATA',
-  // SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  // SELECT_PHOTO: 'SELECT_PHOTO',
-  // DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS'
+  SET_PHOTO_DATA: 'SET_PHOTO_DATA',
+  SET_TOPIC_DATA: 'SET_TOPIC_DATA'
 };
 
 const useApplicationData = () => {
@@ -16,7 +13,9 @@ const useApplicationData = () => {
 const initialState = {
   fav: [],
   showModal: false,
-  photoDetails: null
+  photoDetails: null,
+  photoData: [],
+  topicData: []
 };
 
 
@@ -37,6 +36,16 @@ function reducer(state, action) {
         showModal: !state.showModal,
         photoDetails: action.payload
       };
+      case ACTIONS.SET_PHOTO_DATA:
+        return {
+          ...state,
+          photoData: action.payload
+        };
+      case ACTIONS.SET_TOPIC_DATA:
+        return {
+          ...state,
+          topicData: action.payload
+        };
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -55,6 +64,18 @@ const handleModalAndPhoto = (photo) => {
   dispatch({type: ACTIONS.TOGGLE_MODAL_AND_PHOTO_DETAILS, payload: photo});
 }
 
+  useEffect(() => {
+    const photosData = axios.get('/api/photos');
+    const topicsData = axios.get('/api/topics');
+    const promises = [photosData, topicsData]
+    Promise.all(promises)
+      .then(res => {
+        dispatch({type: ACTIONS.SET_PHOTO_DATA, payload: res[0].data});
+        dispatch({type: ACTIONS.SET_TOPIC_DATA, payload: res[1].data});
+      });
+  }, [])
+
+
 
 return {
   ...state,
@@ -65,31 +86,3 @@ return {
 };
 
 export default useApplicationData;
-
-
-
-// const [fav, setFav] = useState([]);
-// const [showModal, setShowModal] = useState(false);
-// const [photoDetails, setPhotoDetails] = useState(null);
-
-// // Function to toggle favorite status of a photo
-// const toggleFavorite = (photoId) => {
-//   //Check if photo is favorited by checking if the photoId is in the fav array(original state)
-//   const isFavorite = fav.includes(photoId);
-
-//   //Remove photo from favorites if already there
-//   if (isFavorite) {
-//     setFav((prevFav) => prevFav.filter((id) => id !== photoId));
-//   } else {
-//     //Add photo to favorites
-//     setFav((prevFav) => [...prevFav, photoId]);
-//   }
-// };
-
-// //Function to handle modal visibility and setPhotoDetails in the modal
-// const handleModalAndPhoto = (photo) => {
-//   //Set showModal to true if false and vice-versa
-//   setShowModal((prev) => !prev);
-//   setPhotoDetails(photo);
-
-// };
