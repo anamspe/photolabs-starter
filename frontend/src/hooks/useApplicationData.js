@@ -6,7 +6,6 @@ export const ACTIONS = {
   TOGGLE_MODAL_AND_PHOTO_DETAILS: 'TOGGLE_MODAL_AND_PHOTO_DETAILS',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
 };
 
 const useApplicationData = () => {
@@ -47,18 +46,12 @@ const useApplicationData = () => {
           ...state,
           topicData: action.payload
         };
-      case ACTIONS.GET_PHOTOS_BY_TOPICS:
-        return {
-          ...state,
-          photoData: action.payload
-        };
       default:
         throw new Error(
           `Tried to reduce with unsupported action type: ${action.type}`
         );
     }
   }
-
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -88,8 +81,6 @@ const useApplicationData = () => {
       dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: res.data });
     });
   }
-
-
 
   return {
     ...state,
